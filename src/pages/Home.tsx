@@ -73,7 +73,28 @@ const Home = () => {
 
       {/* ── HERO ── */}
       <div ref={heroRef} style={{ position: 'relative', zIndex: 2, maxWidth: '1200px', margin: '0 auto', padding: '0 24px', minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '48px', alignItems: 'center', width: '100%', paddingTop: '80px', paddingBottom: '40px' }}>
+        <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '48px', alignItems: 'center', width: '100%', paddingTop: '80px', paddingBottom: '40px' }}>
+
+          {/* Mobile Photo — shown only on mobile, above text */}
+          <div className="hero-photo-mobile">
+            <div style={{ position: 'relative', width: '100%', animation: 'slide-up 0.6s ease 0.1s both' }}>
+              <div style={{ position: 'absolute', inset: '-16px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.13) 0%, transparent 70%)', zIndex: 0 }} />
+              <div style={{ position: 'relative', zIndex: 2, width: '180px', height: '220px', margin: '0 auto' }}>
+                <div className="curvy-clip" style={{ width: '100%', height: '100%', overflow: 'hidden', border: '2.5px solid rgba(37,99,235,0.22)', boxShadow: '0 20px 60px rgba(37,99,235,0.18), 0 4px 20px rgba(0,0,0,0.10)' }}>
+                  <img src="/images/abhishek-formal.png" alt="Abhishek Vishwakarma" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
+                </div>
+                <div className="float-anim" style={{ position: 'absolute', top: '8%', right: '-52px', animationDelay: '0s', display: 'flex', alignItems: 'center', gap: '5px', padding: '5px 10px', borderRadius: '8px', background: '#fff', border: '1px solid var(--border-accent)', fontSize: '0.68rem', fontFamily: 'var(--font-mono)', color: 'var(--accent)', boxShadow: 'var(--shadow-md)', zIndex: 5, whiteSpace: 'nowrap' }}>
+                  <Server size={10} /> NestJS
+                </div>
+                <div className="float-anim" style={{ position: 'absolute', top: '46%', right: '-52px', animationDelay: '1.2s', display: 'flex', alignItems: 'center', gap: '5px', padding: '5px 10px', borderRadius: '8px', background: '#fff', border: '1px solid var(--border-accent)', fontSize: '0.68rem', fontFamily: 'var(--font-mono)', color: 'var(--accent)', boxShadow: 'var(--shadow-md)', zIndex: 5, whiteSpace: 'nowrap' }}>
+                  <Layers size={10} /> Angular
+                </div>
+                <div className="float-anim" style={{ position: 'absolute', bottom: '10%', right: '-60px', animationDelay: '2.2s', display: 'flex', alignItems: 'center', gap: '5px', padding: '5px 10px', borderRadius: '8px', background: '#fff', border: '1px solid var(--border-accent)', fontSize: '0.68rem', fontFamily: 'var(--font-mono)', color: 'var(--accent)', boxShadow: 'var(--shadow-md)', zIndex: 5, whiteSpace: 'nowrap' }}>
+                  <Zap size={10} /> TypeScript
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div style={{ animation: 'slide-up 0.7s ease 0.1s both' }}>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '18px', letterSpacing: '0.06em' }}>
@@ -94,7 +115,7 @@ const Home = () => {
               {t.hero.subtitle}
             </p>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '30px', color: 'var(--text-muted)', fontSize: '0.82rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '30px', color: 'var(--text-muted)', fontSize: '0.82rem', flexWrap: 'wrap' }}>
               <MapPin size={13} color="var(--accent)" />
               <span>Ghazipur, UP · India</span>
               <span style={{ opacity: 0.4 }}>·</span>
@@ -121,7 +142,7 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Photo */}
+          {/* Desktop Photo */}
           <div className="hero-photo-wrap" style={{ position: 'relative', animation: 'slide-right 0.7s ease 0.3s both', flexShrink: 0 }}>
             <div style={{ position: 'absolute', inset: '-12px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.1) 0%, transparent 70%)', zIndex: 0 }} />
             <div style={{ position: 'relative', zIndex: 2, width: '270px', height: '330px' }}>
@@ -217,8 +238,8 @@ const Home = () => {
         </div>
 
         {/* ── EDUCATION TIMELINE ── */}
-        <div className="reveal glass-card" style={{ padding: '32px 36px', marginBottom: '20px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '28px' }}>
+        <div className="reveal glass-card" style={{ padding: '28px 24px', marginBottom: '20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '24px' }}>
             <div>
               <p className="section-tag"><GraduationCap size={13} /> {lang === 'hi' ? 'शिक्षा यात्रा' : 'Education Journey'}</p>
               <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)' }}>
@@ -229,7 +250,8 @@ const Home = () => {
               <button className="btn-outline" style={{ fontSize: '0.8rem', padding: '7px 14px' }}>{lang === 'hi' ? 'पूरी यात्रा' : 'Full Journey'} <ArrowRight size={13} /></button>
             </Link>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '0', position: 'relative' }}>
+          {/* Desktop: horizontal timeline */}
+          <div className="edu-desktop" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '0', position: 'relative' }}>
             <div style={{ position: 'absolute', top: '22px', left: '12.5%', right: '12.5%', height: '2px', background: 'linear-gradient(90deg, #059669, var(--accent), #d97706, #7c3aed)', opacity: 0.3, zIndex: 0 }} />
             {eduTimeline.map((item, i) => (
               <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative', zIndex: 1, padding: '0 6px' }}>
@@ -242,31 +264,69 @@ const Home = () => {
               </div>
             ))}
           </div>
+          {/* Mobile: vertical timeline */}
+          <div className="edu-mobile" style={{ display: 'none', flexDirection: 'column', gap: '0' }}>
+            {eduTimeline.map((item, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', position: 'relative', paddingBottom: i < eduTimeline.length - 1 ? '20px' : '0' }}>
+                {/* Vertical line */}
+                {i < eduTimeline.length - 1 && (
+                  <div style={{ position: 'absolute', left: '21px', top: '44px', bottom: 0, width: '2px', background: `linear-gradient(180deg, ${item.color}40, ${eduTimeline[i+1].color}40)`, zIndex: 0 }} />
+                )}
+                <div style={{ width: 44, height: 44, borderRadius: '50%', background: `${item.color}12`, border: `2px solid ${item.color}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: `0 3px 14px ${item.color}22`, zIndex: 1, position: 'relative' }}>
+                  <GraduationCap size={17} color={item.color} />
+                </div>
+                <div style={{ paddingTop: '4px', flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: item.color, fontWeight: 700 }}>{item.year}</span>
+                    <span style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-primary)' }}>{item.label}</span>
+                  </div>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{item.sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* ── WORK HIGHLIGHT ── */}
-        <div className="reveal glass-card" style={{ padding: '24px 32px', marginBottom: '20px' }}>
+        <div className="reveal glass-card" style={{ padding: '24px', marginBottom: '20px' }}>
           <p style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '16px' }}>
             {lang === 'hi' ? 'वर्तमान कार्य' : 'Current Position'}
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'auto 1px 1fr', gap: '24px', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div style={{ width: 44, height: 44, borderRadius: '11px', background: 'var(--accent-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                <Briefcase size={20} color="var(--accent)" />
-              </div>
-              <div>
-                <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-primary)' }}>Petco</div>
-                <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Full Stack Engineer · May 2026 — Present</div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '3px' }}>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#059669', display: 'inline-block' }} />
-                  <span style={{ fontSize: '0.72rem', color: '#059669', fontWeight: 600, fontFamily: 'var(--font-mono)' }}>Current</span>
-                </div>
-              </div>
+
+          {/* Current job card */}
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', padding: '16px', borderRadius: '12px', background: 'var(--accent-light)', border: '1px solid rgba(37,99,235,0.12)', marginBottom: '12px' }}>
+            <div style={{ width: 44, height: 44, borderRadius: '11px', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <Briefcase size={20} color="#fff" />
             </div>
-            <div style={{ width: '1px', height: '44px', background: 'var(--border)' }} />
-            <div>
-              <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-primary)', marginBottom: '2px' }}>Previously: Digital Navigation Pvt Ltd</div>
-              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '8px' }}>Software Engineer · Mar 2023 — Feb 2026</div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '2px' }}>
+                <span style={{ fontWeight: 800, fontSize: '1rem', color: 'var(--text-primary)' }}>Petco</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.68rem', color: '#059669', fontWeight: 700, fontFamily: 'var(--font-mono)', background: 'rgba(5,150,105,0.1)', padding: '2px 8px', borderRadius: '20px' }}>
+                  <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#059669', display: 'inline-block', animation: 'pulse-ring 2s infinite' }} />
+                  Current
+                </span>
+              </div>
+              <div style={{ fontSize: '0.82rem', color: 'var(--accent)', fontWeight: 600, marginBottom: '2px' }}>Full Stack Engineer</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>May 2026 — Present</div>
+            </div>
+          </div>
+
+          {/* Divider with "Previously" label */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: '16px 0' }}>
+            <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
+            <span style={{ fontSize: '0.68rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', letterSpacing: '0.06em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>Previously</span>
+            <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
+          </div>
+
+          {/* Previous job card */}
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', padding: '16px', borderRadius: '12px', background: 'rgba(0,0,0,0.02)', border: '1px solid var(--border)' }}>
+            <div style={{ width: 44, height: 44, borderRadius: '11px', background: 'rgba(100,116,139,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <Briefcase size={20} color="var(--text-secondary)" />
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-primary)', marginBottom: '2px' }}>Digital Navigation Pvt Ltd</div>
+              <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', fontWeight: 500, marginBottom: '4px' }}>Software Engineer</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '10px' }}>Mar 2023 — Feb 2026</div>
               <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                 {['Node.js', 'Angular', 'WebSocket', 'Redis', 'AWS', 'Docker'].map(t => <span key={t} className="tech-badge">{t}</span>)}
               </div>
@@ -275,27 +335,29 @@ const Home = () => {
         </div>
 
         {/* ── LeadNirvana AI Project ── */}
-        <div className="reveal glass-card" style={{ padding: '24px 32px', marginBottom: '20px', borderLeft: '3px solid #7c3aed' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'auto 1px 1fr', gap: '24px', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div style={{ width: 44, height: 44, borderRadius: '11px', background: 'rgba(124,58,237,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                <Brain size={20} color="#7c3aed" />
+        <div className="reveal glass-card" style={{ padding: '24px', marginBottom: '20px', borderLeft: '3px solid #7c3aed' }}>
+          {/* Header row */}
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', marginBottom: '14px' }}>
+            <div style={{ width: 44, height: 44, borderRadius: '11px', background: 'rgba(124,58,237,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <Brain size={20} color="#7c3aed" />
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '2px' }}>
+                <span style={{ fontWeight: 800, fontSize: '1rem', color: 'var(--text-primary)' }}>LeadNirvana</span>
+                <span style={{ fontSize: '0.65rem', padding: '2px 8px', borderRadius: '20px', background: 'rgba(217,119,6,0.1)', color: '#d97706', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>Building</span>
               </div>
-              <div>
-                <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-primary)' }}>LeadNirvana</div>
-                <div style={{ fontSize: '0.78rem', color: '#7c3aed', fontWeight: 600 }}>{lang === 'hi' ? 'फाउंडर और लीड इंजीनियर' : 'Founder & Lead Engineer'}</div>
-                <span style={{ fontSize: '0.65rem', padding: '1px 8px', borderRadius: '8px', background: 'rgba(217,119,6,0.1)', color: '#d97706', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>Building</span>
+              <div style={{ fontSize: '0.82rem', color: '#7c3aed', fontWeight: 600 }}>
+                {lang === 'hi' ? 'फाउंडर और लीड इंजीनियर' : 'Founder & Lead Engineer'}
               </div>
             </div>
-            <div style={{ width: '1px', height: '44px', background: 'var(--border)' }} />
-            <div>
-              <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '8px', lineHeight: 1.6 }}>
-                {lang === 'hi' ? 'हाई-टिकट B2B के लिए AI सेल्स इंजन।' : 'AI Sales Execution Engine for high-ticket B2B businesses.'}
-              </p>
-              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                {['NestJS', 'OpenAI', 'Claude AI', 'BullMQ', 'WhatsApp API', 'WebSocket'].map(t => <span key={t} className="tech-badge" style={{ background: 'rgba(124,58,237,0.07)', borderColor: 'rgba(124,58,237,0.18)', color: '#7c3aed' }}>{t}</span>)}
-              </div>
-            </div>
+          </div>
+          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '12px', lineHeight: 1.65, paddingLeft: '58px' }}>
+            {lang === 'hi' ? 'हाई-टिकट B2B के लिए AI सेल्स इंजन।' : 'AI Sales Execution Engine for high-ticket B2B businesses.'}
+          </p>
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', paddingLeft: '58px' }}>
+            {['NestJS', 'OpenAI', 'Claude AI', 'BullMQ', 'WhatsApp API', 'WebSocket'].map(t => (
+              <span key={t} className="tech-badge" style={{ background: 'rgba(124,58,237,0.07)', borderColor: 'rgba(124,58,237,0.18)', color: '#7c3aed' }}>{t}</span>
+            ))}
           </div>
         </div>
 
@@ -328,9 +390,40 @@ const Home = () => {
       </div>
 
       <style>{`
-        @media (max-width: 768px) { .hero-photo-wrap { display: none !important; } }
-        @media (max-width: 600px) {
-          .edu-grid { grid-template-columns: repeat(2,1fr) !important; }
+        /* ── Mobile Hero ── */
+        .hero-photo-mobile { display: none; }
+        .edu-mobile { display: none !important; }
+        .edu-desktop { display: grid !important; }
+
+        @media (max-width: 768px) {
+          /* Hide desktop photo, show mobile photo */
+          .hero-photo-wrap { display: none !important; }
+          .hero-photo-mobile { display: block !important; }
+
+          /* Stack hero: photo on top, text below, centered */
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+            grid-template-rows: auto auto !important;
+            gap: 32px !important;
+            padding-top: 96px !important;
+            padding-bottom: 32px !important;
+            min-height: unset !important;
+            justify-items: center !important;
+            text-align: center !important;
+          }
+          .hero-photo-mobile {
+            display: flex !important;
+            justify-content: center !important;
+            padding: 0 60px 0 0 !important;
+            width: 100% !important;
+          }
+
+          /* Education: hide horizontal, show vertical */
+          .edu-desktop { display: none !important; }
+          .edu-mobile {
+            display: flex !important;
+            flex-direction: column !important;
+          }
         }
       `}</style>
     </main>
