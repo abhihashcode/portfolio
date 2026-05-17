@@ -94,7 +94,7 @@ const Resume = () => {
           {/* Name header */}
           <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: '24px', marginBottom: '32px' }}>
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 800, marginBottom: '4px' }}>Abhishek Vishwakarma</h2>
-            <p style={{ color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', marginBottom: '12px' }}>Software Developer · Delhi, India</p>
+            <p style={{ color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', marginBottom: '12px' }}>Software Developer · Ghazipur, India</p>
             <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
               {['abhishek@example.com', 'github.com/abhishek', 'linkedin.com/in/abhishek'].map(link => (
                 <span key={link} style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontFamily: 'var(--font-mono)' }}>{link}</span>
