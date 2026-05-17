@@ -43,8 +43,8 @@ const Home = () => {
 
   useEffect(() => {
     const roles = lang === 'hi'
-      ? ['फुल-स्टैक इंजीनियर', 'AI प्रोडक्ट बिल्डर', 'बैकएंड आर्किटेक्ट', 'प्रोडक्शन-रेडी डेव']
-      : ['Full-Stack Engineer', 'AI Product Builder', 'Backend Architect', 'Production-Ready Dev'];
+      ? ['फुल-स्टैक इंजीनियर', 'सॉफ्टवेयर इंजीनियर', 'AI प्रोडक्ट बिल्डर', 'बैकएंड आर्किटेक्ट', 'प्रोडक्शन-रेडी डेव']
+      : ['Full-Stack Engineer', 'Software Engineer', 'AI Product Builder', 'Backend Architect', 'Production-Ready Dev'];
     let roleIdx = 0, charIdx = 0, deleting = false;
     const el = document.getElementById('typewriter');
     if (!el) return;
@@ -106,7 +106,7 @@ const Home = () => {
               <span style={{ color: 'var(--accent)' }}>Vishwakarma</span>
             </h1>
 
-            <div style={{ display: 'flex', alignItems: 'center', minHeight: '44px', marginBottom: '18px' }}>
+            <div className="typewriter-wrap" style={{ display: 'flex', alignItems: 'center', minHeight: '44px', marginBottom: '18px' }}>
               <span id="typewriter" style={{ fontSize: 'clamp(1rem, 2.2vw, 1.5rem)', fontWeight: 600, color: 'var(--text-secondary)' }} />
               <span style={{ width: '2px', height: '1.3em', background: 'var(--accent)', marginLeft: '3px', display: 'inline-block', verticalAlign: 'middle', animation: 'blink 1s step-end infinite' }} />
             </div>
@@ -115,15 +115,15 @@ const Home = () => {
               {t.hero.subtitle}
             </p>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '30px', color: 'var(--text-muted)', fontSize: '0.82rem', flexWrap: 'wrap' }}>
+            <div className="hero-contact" style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '30px', color: 'var(--text-muted)', fontSize: '0.82rem', flexWrap: 'wrap' }}>
               <MapPin size={13} color="var(--accent)" />
               <span>Ghazipur, UP · India</span>
-              <span style={{ opacity: 0.4 }}>·</span>
+              <span className="contact-dot" style={{ opacity: 0.4 }}>·</span>
               <Mail size={13} color="var(--accent)" />
               <span>abhishekvish2332@gmail.com</span>
             </div>
 
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '40px' }}>
+            <div className="hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '40px' }}>
               <Link to="/projects">
                 <button className="btn-primary">{t.hero.cta_projects} <ArrowRight size={16} /></button>
               </Link>
@@ -132,7 +132,7 @@ const Home = () => {
               </Link>
             </div>
 
-            <div style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
+            <div className="hero-stats" style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
               {t.about.stats.map(stat => (
                 <div key={stat.label}>
                   <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--accent)', lineHeight: 1 }}>{stat.value}</div>
@@ -160,7 +160,7 @@ const Home = () => {
       </div>
 
       {/* Scroll cue */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px', color: 'var(--text-hint)', fontSize: '0.7rem', fontFamily: 'var(--font-mono)', animation: 'float 2.5s ease-in-out infinite', position: 'relative', zIndex: 2, marginTop: '-20px', marginBottom: '16px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px', color: 'var(--text-hint)', fontSize: '0.7rem', fontFamily: 'var(--font-mono)', animation: 'float 2.5s ease-in-out infinite', position: 'relative', zIndex: 2, marginTop: '0px', marginBottom: '24px' }}>
         <span>{t.hero.scroll}</span>
         <ChevronDown size={15} />
       </div>
@@ -417,6 +417,18 @@ const Home = () => {
             padding: 0 60px 0 0 !important;
             width: 100% !important;
           }
+
+          /* Center typewriter, buttons, stats, contact */
+          .typewriter-wrap { justify-content: center !important; }
+          .hero-btns { justify-content: center !important; }
+          .hero-stats { justify-content: center !important; }
+          .hero-contact {
+            justify-content: center !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 4px !important;
+          }
+          .contact-dot { display: none !important; }
 
           /* Education: hide horizontal, show vertical */
           .edu-desktop { display: none !important; }
