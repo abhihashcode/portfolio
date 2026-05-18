@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MapPin, Coffee, Camera, Gamepad2 } from 'lucide-react';
 import { useLang } from '../context/LanguageContext';
 import { skillCategories } from '../data/skills';
@@ -9,6 +9,132 @@ const interests = [
   { icon: Gamepad2, label: 'Gaming', labelHi: 'गेमिंग' },
   { icon: MapPin, label: 'Travelling', labelHi: 'यात्रा' },
 ];
+
+const AboutVideoPlayer = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [showControls, setShowControls] = useState(false);
+
+  const togglePlay = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (playing) { v.pause(); setPlaying(false); }
+    else { v.play(); setPlaying(true); }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) { videoRef.current.muted = !muted; setMuted(!muted); }
+  };
+
+  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    const v = videoRef.current;
+    if (!v) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const ratio = (e.clientX - rect.left) / rect.width;
+    v.currentTime = ratio * v.duration;
+  };
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const onTime = () => setProgress((v.currentTime / v.duration) * 100 || 0);
+    const onMeta = () => setDuration(v.duration);
+    const onEnd = () => setPlaying(false);
+    v.addEventListener('timeupdate', onTime);
+    v.addEventListener('loadedmetadata', onMeta);
+    v.addEventListener('ended', onEnd);
+    return () => { v.removeEventListener('timeupdate', onTime); v.removeEventListener('loadedmetadata', onMeta); v.removeEventListener('ended', onEnd); };
+  }, []);
+
+  const fmt = (s: number) => `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px', alignItems: 'center' }}>
+      {/* Video Player */}
+      <div
+        style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', background: '#000', aspectRatio: '9/16', maxWidth: '360px', margin: '0 auto', cursor: 'pointer', boxShadow: '0 20px 60px rgba(0,0,0,0.15)' }}
+        onClick={togglePlay}
+        onMouseEnter={() => setShowControls(true)}
+        onMouseLeave={() => setShowControls(false)}
+      >
+        <video
+          ref={videoRef}
+          src="/images/intro-opt.mp4"
+          poster="/images/intro-poster.jpg"
+          muted={muted}
+          playsInline
+          preload="metadata"
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        />
+
+        {/* Play button overlay */}
+        {!playing && (
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.25)' }}>
+            <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(255,255,255,0.92)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 32px rgba(0,0,0,0.2)', transition: 'transform 0.2s' }}>
+              <div style={{ width: 0, height: 0, borderStyle: 'solid', borderWidth: '12px 0 12px 22px', borderColor: 'transparent transparent transparent #2563eb', marginLeft: '4px' }} />
+            </div>
+          </div>
+        )}
+
+        {/* Controls bar */}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '12px 16px 14px', background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)', opacity: (showControls || !playing) ? 1 : 0, transition: 'opacity 0.3s ease', zIndex: 2 }}>
+          {/* Progress bar */}
+          <div onClick={handleSeek} style={{ height: '3px', background: 'rgba(255,255,255,0.25)', borderRadius: '2px', marginBottom: '10px', cursor: 'pointer', position: 'relative' }}>
+            <div style={{ position: 'absolute', left: 0, top: 0, height: '100%', width: `${progress}%`, background: '#fff', borderRadius: '2px', transition: 'width 0.15s linear' }} />
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <button onClick={togglePlay} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '14px', padding: '2px', lineHeight: 1 }}>
+                {playing ? '⏸' : '▶'}
+              </button>
+              <span style={{ color: 'rgba(255,255,255,0.7)', fontFamily: 'monospace', fontSize: '0.7rem' }}>
+                {fmt(videoRef.current?.currentTime || 0)} / {fmt(duration)}
+              </span>
+            </div>
+            <button onClick={toggleMute} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.7)', cursor: 'pointer', fontSize: '14px', padding: '2px', lineHeight: 1 }}>
+              {muted ? '🔇' : '🔊'}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Text beside video */}
+      <div>
+        <div style={{ marginBottom: '20px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '4px 12px', borderRadius: '12px', background: 'rgba(5,150,105,0.08)', border: '1px solid rgba(5,150,105,0.18)', marginBottom: '14px' }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#059669', display: 'inline-block' }} />
+            <span style={{ fontSize: '0.74rem', color: '#059669', fontWeight: 600, fontFamily: 'var(--font-mono)' }}>Full-Stack Engineer</span>
+          </div>
+          <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.3, marginBottom: '12px' }}>
+            3.5 Years of<br />Production Experience
+          </h3>
+          <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: '16px' }}>
+            From healthcare platforms to AI-powered sales engines — I build systems that scale. Currently at Bonami Software Pvt Ltd, and building LeadNirvana on the side.
+          </p>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {[
+            { label: 'Enterprise Deployments', value: '5+' },
+            { label: 'Concurrent Users Handled', value: '100+' },
+            { label: 'DB Query Improvement', value: '93%' },
+            { label: 'Production Bug Reduction', value: '60%' },
+          ].map(item => (
+            <div key={item.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', borderRadius: '8px', background: 'var(--bg-card)', border: '1px solid var(--border)' }}>
+              <span style={{ fontSize: '0.84rem', color: 'var(--text-secondary)' }}>{item.label}</span>
+              <span style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>{item.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
 const About = () => {
   const { t, lang } = useLang();
@@ -163,6 +289,18 @@ const About = () => {
               <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontFamily: 'var(--font-mono)' }}>{stat.label}</div>
             </div>
           ))}
+        </div>
+
+
+        {/* ── MY STORY VIDEO ── */}
+        <div className="reveal" style={{ marginBottom: '80px' }}>
+          <div style={{ marginBottom: '32px' }}>
+            <p className="section-tag">My Story</p>
+            <h2 style={{ fontSize: 'clamp(1.6rem, 4vw, 2.4rem)', fontWeight: 800, color: 'var(--text-primary)' }}>
+              {lang === 'hi' ? 'मुझे खुद देखें' : 'See Me In Action'}
+            </h2>
+          </div>
+          <AboutVideoPlayer />
         </div>
 
         {/* Skills */}
