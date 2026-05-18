@@ -114,7 +114,7 @@ const AboutVideoPlayer = () => {
             3.5 Years of<br />Production Experience
           </h3>
           <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: '16px' }}>
-            From healthcare platforms to AI-powered sales engines — I build systems that scale. Currently at Bonami Software Pvt Ltd, and building LeadNirvana on the side.
+            From healthcare platforms to AI-powered sales engines — I build systems that scale. Currently at <b>Petco</b>, and building LeadNirvana on the side.
           </p>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
