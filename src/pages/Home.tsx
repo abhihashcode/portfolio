@@ -415,7 +415,6 @@ const Home = () => {
             order: -1;
             display: flex !important;
             justify-content: center;
-            
             padding-left: 0;
             overflow: visible;
           }
